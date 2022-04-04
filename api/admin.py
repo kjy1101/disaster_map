@@ -1,3 +1,8 @@
-from django.contrib import admin
+from django.contrib.gis import admin
 
-# Register your models here.
+from .models import Mark
+
+
+@admin.register(Mark)
+class MarkAdmin(admin.OSMGeoAdmin):
+    list_display = ("name", "location")
