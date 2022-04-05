@@ -101,7 +101,7 @@ def extract_insta_data(user_id="id", user_passwd="passwd", wish_num=10,
         print(f"Start {keyword} Extract")
 
 
-extract_insta_data(user_id="chaeri93@naver.com", user_passwd="aa0924", wish_num=3,
+extract_insta_data(user_id="id", user_passwd="pwd", wish_num=3,
                    login_option="facebook",  # facebook or instagram
                     keyword="키친마이야르",
                    instagram_id_name="username", instagram_pw_name="password",
