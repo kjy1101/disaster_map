@@ -7,7 +7,6 @@ django-filter==21.1
 djangorestframework==3.13.1
 djangorestframework-gis==0.18
 future==0.18.2
-GDAL==3.4.2
 idna==3.3
 oauthlib==3.2.0
 psycopg2==2.9.3
