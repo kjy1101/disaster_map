@@ -260,3 +260,4 @@ fabric.properties
 /.env.prod
 
 disaster_map_setup.bat
+stream_result.txt
