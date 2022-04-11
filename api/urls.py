@@ -1,9 +1,7 @@
 from django.urls import path, include
 
-from .views import MapView
+from .views import MapView, MarkViewSet
 from rest_framework import routers
-
-from .viewsets import MarkViewSet
 
 app_name = "markers"
 
