@@ -1,18 +1,18 @@
-import os
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "disaster_map.settings")
-
-import django
-django.setup()
-
-from api.twitter_api import twitter_api, utc2kst
+from api.twitter_api import twitter_api, utc2kst, removeRT
 
 
 def main(interval=60):
-    query = ["석촌호수"]
+    query = ["지성"]
     stream = twitter_api.GetStreamFilter(track=query)
     times = []
 
     for tweets in stream:
-        time = utc2kst(tweets['created_at'])
-        times.append(time)
-        print(tweets)
+        print('***********crawling***********')
+        if removeRT(tweets['text']):
+            time = utc2kst(tweets['created_at'])
+            times.append(time)
+            print(tweets)
+
+
+if __name__ == '__main__':
+    main(interval=60)

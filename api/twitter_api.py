@@ -54,3 +54,14 @@ def utc2kst(utc_str):
 
 
 
+# RT로 들어오는 트윗 제거하기
+def removeRT(text):
+
+    if text[0] == 'R' and text[1] == 'T':
+        return False
+    else:
+        return True
+
+
+
+
