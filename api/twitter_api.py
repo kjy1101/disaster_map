@@ -19,8 +19,10 @@ twitter_api = twitter.Api(consumer_key=twitter_consumer_key,
 #     print(status.text)
 
 
-query = ["산불"]
+query = ["석촌호수"]
 stream = twitter_api.GetStreamFilter(track=query)
 
 for tweets in stream:
     print(tweets)
+
+

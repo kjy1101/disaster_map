@@ -20,7 +20,13 @@ env = environ.Env(
     DEBUG=(bool, False)
 )
 environ.Env.read_env(os.path.join(BASE_DIR, '.env'))
+
 # windows setting
+if os.name == 'nt':
+    VIRTUAL_ENV_BASE = os.environ['VIRTUAL_ENV']
+    os.environ['PATH'] = os.path.join(VIRTUAL_ENV_BASE, r'.\Lib\site-packages\osgeo') + ';' + os.environ['PATH']
+    os.environ['PROJ_LIB'] = os.path.join(VIRTUAL_ENV_BASE, r'.\Lib\site-packages\osgeo\data\proj') + ';' + os.environ[
+        'PATH']
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = env('DJANGO_SECRET_KEY')
@@ -29,7 +35,6 @@ SECRET_KEY = env('DJANGO_SECRET_KEY')
 DEBUG = env('DEBUG')
 
 ALLOWED_HOSTS = []
-
 
 # Application definition
 
@@ -76,7 +81,6 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'disaster_map.wsgi.application'
 
-
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
 
@@ -90,7 +94,6 @@ DATABASES = {
         'PORT': env('DATABASE_PORT'),
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -110,7 +113,6 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/3.2/topics/i18n/
 
@@ -123,7 +125,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
