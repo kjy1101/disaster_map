@@ -1,5 +1,5 @@
 import time
-import twitter_api
+import retrieve, classify
 
 def main(interval=60):
 
@@ -14,7 +14,6 @@ def main(interval=60):
     queries_coldwave = ["한파", "추위", "추워", "춥다", "추움", "얼었", "칼바람", "추운", "영하", "기온이 낮", "온도가 낮", "혹한"] # 한파
     queries_heatwave = ["폭염", "열대야", "더위", "더워", "덥다", "더움", "더운", "고온", "이상고온", "기온이 높", "습도", "온도가 높", "혹서"] # 폭염/열대야
     queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "뿌옇", "뿌연", "공기", "공기가 탁", "대기질"] # 미세먼지/황사
-    queries_tsunami = ["파도","해일"] # 해일
 
     queries += queries_typhoon + queries_downpour + queries_snow + queries_gale + queries_drought + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust
 
@@ -25,9 +24,10 @@ def main(interval=60):
         print(time.time())
 
         # 트윗 가져오기 (retrieve)
-        twids,times,texts,users = twitter_api.search_tweets(queries)
+        twids,times,texts,users = retrieve.search_tweets(queries) # 1분동안 가져옴
 
         # 트윗 분류하기 (classify)
+
 
         time.sleep(60) # 60초에 한번씩 실행
 

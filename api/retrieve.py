@@ -23,7 +23,7 @@ twitter_consumer_secret = env('twitter_consumer_secret')
 twitter_access_token = env('twitter_access_token')
 twitter_access_secret = env('twitter_access_secret')
 
-twitterAPI = twitter.Api(consumer_key=twitter_consumer_key,
+twitter_api = twitter.Api(consumer_key=twitter_consumer_key,
                           consumer_secret=twitter_consumer_secret, 
                           access_token_key=twitter_access_token, 
                           access_token_secret=twitter_access_secret)
@@ -45,7 +45,7 @@ def utc2kst(utc_str):
 
 # 자연재해마다 사용할 검색 키워드 queries에 모두 리스트로 저장해서 넘김
 # ex. queries= ["지진", "earthquake", "진동", "흔들렸"]
-# 1시간에 한번씩 호출됨
+# 1분에 한번씩 호출됨
 def search_tweets(queries):
 
     twids = [] # id_str (아이디)
@@ -53,12 +53,12 @@ def search_tweets(queries):
     texts = [] # text (텍스트)
     users = [] # user name (유저 이름)
 
-    stream = twitterAPI.GetStreamFilter(track=queries)
+    stream = twitter_api.GetStreamFilter(track=queries)
 
     delay = 60 * 1 # 60 seconds * 1 minutes
     close_time = time.time() + delay
 
-    # 1시간동안 트윗 데이터 모으기
+    # 1분동안 트윗 데이터 모으기
     for tweets in stream:
         print(tweets['text'])
         print('----------------------------------')
@@ -70,7 +70,7 @@ def search_tweets(queries):
         if time.time() > close_time:
             break
         
-    # 1시간동안 트윗 데이터 모은 후 모두 반환
+    # 1분동안 트윗 데이터 모은 후 모두 반환
     print("out")
     return twids, times, texts, users
 
