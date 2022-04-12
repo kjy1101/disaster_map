@@ -22,7 +22,7 @@ twitter_consumer_secret = env('twitter_consumer_secret')
 twitter_access_token = env('twitter_access_token')
 twitter_access_secret = env('twitter_access_secret')
 
-twitter_api = twitter.Api(consumer_key=twitter_consumer_key,
+twitter_api_api = twitter.Api(consumer_key=twitter_consumer_key,
                           consumer_secret=twitter_consumer_secret, 
                           access_token_key=twitter_access_token, 
                           access_token_secret=twitter_access_secret)
@@ -38,11 +38,11 @@ def search_tweets(queries, sids=None):
     texts = [] # text (텍스트)
     users = [] # user name (유저 이름)
 
-    stream = twitter_api.GetStreamFilter(track=queries)
+    stream = twitter_api_api.GetStreamFilter(track=queries)
 
     delay = 60 * 1 # 60 seconds * 1 minutes
     close_time = time.time() + delay
-    
+
     # 1시간동안 트윗 데이터 모으기
     for tweets in stream:
         print(tweets['text'])
@@ -62,3 +62,16 @@ def search_tweets(queries, sids=None):
 
 query = ["산불", "지진", "태풍", "홍수", "가뭄", "자연재해", "화산", "화재"]
 search_tweets(query)
+
+def removeRT(text):
+
+    if text[0] == 'R' and text[1] == 'T':
+        return False
+    else:
+        return True
+
+def utc2kst(utc_str):
+    ust = datetime.strptime(utc_str, '%a %b %d %H:%M:%S +0000 %Y')
+    kst = ust + timedelta(hours=9)
+    kst_str = kst.strftime('%Y.%m.%d %H:%M:%S')
+    return kst_str

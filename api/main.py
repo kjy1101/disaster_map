@@ -1,9 +1,8 @@
-from api.twitter_api import twitter_api, utc2kst, removeRT
-
+from twitter_api import twitter_api_api, utc2kst, removeRT
 
 def main(interval=60):
     query = ["지성"]
-    stream = twitter_api.GetStreamFilter(track=query)
+    stream = twitter_api_api.GetStreamFilter(track=query)
     times = []
 
     for tweets in stream:
