@@ -46,7 +46,7 @@ def utc2kst(utc_str):
 # 자연재해마다 사용할 검색 키워드 queries에 모두 리스트로 저장해서 넘김
 # ex. queries= ["지진", "earthquake", "진동", "흔들렸"]
 # 1시간에 한번씩 호출됨
-def search_tweets(queries, sids=None):
+def search_tweets(queries):
 
     twids = [] # id_str (아이디)
     times = [] # created_at (생성시간)
