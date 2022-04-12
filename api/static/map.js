@@ -9,7 +9,7 @@ map.
 
 // To build the marker layer, we ask our endpoint for data asynchronously and extract the properties we want to show in the pop-ups.
 async function load_markers() {
-    const markers_url = `/mark/markers/?in_bbox=${map.getBounds().toBBoxString()}`
+    const markers_url = `/api/markers/?in_bbox=${map.getBounds().toBBoxString()}`
     const response = await fetch(markers_url)
     const geojson = await response.json()
     return geojson

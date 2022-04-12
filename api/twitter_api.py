@@ -2,6 +2,8 @@
 # from disaster_map.settings import *
 
 # window (secret key)
+from datetime import datetime, timedelta
+import time
 from pathlib import Path
 import os
 import environ
@@ -32,19 +34,34 @@ twitter_api = twitter.Api(consumer_key=twitter_consumer_key,
 #     print(status.text)
 
 
-query = ["석촌호수"]
-stream = twitter_api.GetStreamFilter(track=query)
+# query = ["산불"]
+# output_file_name = "stream_result.txt"
+# with open(output_file_name, "w", encoding="utf-8") as output_file:
+#     stream = twitter_api.GetStreamFilter(track=query)
+#     while True:
+#         for tweets in stream:
+#             tweet = json.dumps(tweets, ensure_ascii=False)
+#             print(tweet, file=output_file, flush=True)
+#
 
-for tweets in stream:
-    print(tweets)
+# UTC->KST
+# utc2kst(tweet['created_at']
+def utc2kst(utc_str):
+    ust = datetime.strptime(utc_str, '%a %b %d %H:%M:%S +0000 %Y')
+    kst = ust + timedelta(hours=9)
+    kst_str = kst.strftime('%Y.%m.%d %H:%M:%S')
+    return kst_str
 
 
-query = ["산불"]
-output_file_name = "stream_result.txt"
-with open(output_file_name, "w", encoding="utf-8") as output_file:
-    stream = twitter_api.GetStreamFilter(track=query)
-    while True:
-        for tweets in stream:
-            tweet = json.dumps(tweets, ensure_ascii=False)
-            print(tweet, file=output_file, flush=True)
+
+# RT로 들어오는 트윗 제거하기
+def removeRT(text):
+
+    if text[0] == 'R' and text[1] == 'T':
+        return False
+    else:
+        return True
+
+
+
 
