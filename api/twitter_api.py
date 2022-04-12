@@ -40,10 +40,10 @@ def search_tweets(queries, sids=None):
 
     stream = twitter_api.GetStreamFilter(track=queries)
 
-    delay = 60 * 1 # 60 seconds * 60 minutes
+    delay = 60 * 1 # 60 seconds * 1 minutes
     close_time = time.time() + delay
+    
     # 1시간동안 트윗 데이터 모으기
-    #while True:
     for tweets in stream:
         print(tweets['text'])
         print('----------------------------------')
@@ -51,16 +51,14 @@ def search_tweets(queries, sids=None):
         texts.append(tweets['text'])
         twids.append(tweets['id_str'])
         users.append(tweets['user']['name'])
-            # print(texts)
-        #print(time.time(), close_time)
+
         if time.time() > close_time:
             break
         
     # 1시간동안 트윗 데이터 모은 후 모두 반환
     print("out")
-    return twids, times, texts, users#, sids_new
+    return twids, times, texts, users
 
 
-# query = ["산불", "지진", "태풍", "홍수", "가뭄", "자연재해", "화산", "화재"]
-query = ["지성"]
+query = ["산불", "지진", "태풍", "홍수", "가뭄", "자연재해", "화산", "화재"]
 search_tweets(query)
