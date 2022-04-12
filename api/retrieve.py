@@ -48,10 +48,7 @@ def utc2kst(utc_str):
 # 1분에 한번씩 호출됨
 def search_tweets(queries):
 
-    twids = [] # id_str (아이디)
-    times = [] # created_at (생성시간)
-    texts = [] # text (텍스트)
-    users = [] # user name (유저 이름)
+    tweet_all = []
 
     stream = twitter_api.GetStreamFilter(track=queries)
 
@@ -60,19 +57,22 @@ def search_tweets(queries):
 
     # 1분동안 트윗 데이터 모으기
     for tweets in stream:
-        print(tweets['text'])
-        print('----------------------------------')
-        times.append(utc2kst(tweets['created_at']))
-        texts.append(tweets['text'])
-        twids.append(tweets['id_str'])
-        users.append(tweets['user']['name'])
+        # print(tweets['text'])
+        # print('----------------------------------')
+        tweet = {
+            "time" : utc2kst(tweets['created_at']),
+            "text" : tweets['text'],
+            "twid" : tweets['id_str'],
+            "user" : tweets['user']['name']
+        }
+        tweet_all.append(tweet)
 
         if time.time() > close_time:
             break
         
     # 1분동안 트윗 데이터 모은 후 모두 반환
     print("out")
-    return twids, times, texts, users
+    return tweet_all
 
 
 # query = ["산불", "지진", "태풍", "홍수", "가뭄", "자연재해", "화산", "화재"]

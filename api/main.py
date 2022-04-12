@@ -24,10 +24,11 @@ def main(interval=60):
         print(time.time())
 
         # 트윗 가져오기 (retrieve)
-        twids,times,texts,users = retrieve.search_tweets(queries) # 1분동안 가져옴
+        tweet_all = retrieve.search_tweets(queries) # 1분동안 가져옴
 
         # 트윗 분류하기 (classify)
-
+        print("모아진 트윗-----")
+        print(tweet_all)
 
         time.sleep(60) # 60초에 한번씩 실행
 
