@@ -20,9 +20,8 @@ symbol = ['「','」','.','?','!']
 
 def txt2wak(txt):
     m = MeCab.Tagger()
-    a = m.parse("싹쓰리가 어쩌고했대")
-    print(a)
-    return txt
+    a = m.parse(txt)
+    return a
 
 # 트윗 텍스트에서 불필요하거나 의미없는 부분 제거 및 변환
 def parge_tweet(tweet):
@@ -43,6 +42,7 @@ def parge_tweet(tweet):
 def tweet2wak(tweet):
     t = parge_tweet(tweet)
     return txt2wak(t)
+
 
 # list of Tweet -> array of tokens
 def tweets2tokens(tweets):
