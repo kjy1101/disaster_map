@@ -48,7 +48,12 @@ def utc2kst(utc_str):
 # 1분에 한번씩 호출됨
 def search_tweets(queries):
 
-    tweet_all = []
+    # tweet_all = []
+
+    twids = [] # id_str (아이디)
+    times = [] # created_at (생성시간)
+    texts = [] # text (텍스트)
+    users = [] # user name (유저 이름)
 
     stream = twitter_api.GetStreamFilter(track=queries)
 
@@ -59,29 +64,42 @@ def search_tweets(queries):
     for tweets in stream:
         # print(tweets['text'])
         # print('----------------------------------')
-        tweet = {
+        """tweet = {
             "time" : utc2kst(tweets['created_at']),
             "text" : tweets['text'],
             "twid" : tweets['id_str'],
             "user" : tweets['user']['name']
         }
-        tweet_all.append(tweet)
+        tweet_all.append(tweet)"""
+        if removeRT(tweets['text']):
+            times.append(utc2kst(tweets['created_at']))
+            texts.append(tweets['text'])
+            twids.append(tweets['id_str'])
+            users.append(tweets['user']['name'])
 
         if time.time() > close_time:
             break
         
     # 1분동안 트윗 데이터 모은 후 모두 반환
     print("out")
-    return tweet_all
+    return twids, times, texts, users
 
 
 # query = ["산불", "지진", "태풍", "홍수", "가뭄", "자연재해", "화산", "화재"]
 # search_tweets(query)
 
+# 중복 트윗 삭제
+def remove_duplicates(twids, times, texts, users):
+    twids_drop_dup = []
+    times_drop_dup = []
+    texts_drop_dup = []
+    users_drop_dup = []
 
-def remove_duplicates(tweets):
-    tweet_all=[]
-    for tweet in tweets:
-        if tweet['twid'] not in tweets:
-            tweet_all.append(tweet)
-    return tweet_all
+    for tw,ti,te,us in zip(twids,times,texts,users):
+        if tw not in twids_drop_dup:
+            twids_drop_dup.append(tw)
+            times_drop_dup.append(ti)
+            texts_drop_dup.append(te)
+            users_drop_dup.append(us)
+
+    return twids_drop_dup,times_drop_dup,texts_drop_dup,users_drop_dup
