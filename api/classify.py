@@ -2,7 +2,8 @@ import main
 import pickle
 import numpy as np
 import re
-from eunjeon import Mecab
+# from eunjeon import Mecab
+import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
