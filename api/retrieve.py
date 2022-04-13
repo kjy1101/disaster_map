@@ -77,3 +77,11 @@ def search_tweets(queries):
 
 # query = ["산불", "지진", "태풍", "홍수", "가뭄", "자연재해", "화산", "화재"]
 # search_tweets(query)
+
+
+def remove_duplicates(tweets):
+    tweet_all=[]
+    for tweet in tweets:
+        if tweet['twid'] not in tweets:
+            tweet_all.append(tweet)
+    return tweet_all
