@@ -52,7 +52,7 @@ def search_tweets(queries):
 
     stream = twitter_api.GetStreamFilter(track=queries)
 
-    delay = 60 * 1 # 60 seconds * 1 minutes
+    delay = 60 * 0.5 # 60 seconds * 1 minutes
     close_time = time.time() + delay
 
     # 1분동안 트윗 데이터 모으기
