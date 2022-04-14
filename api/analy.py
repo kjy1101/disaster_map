@@ -25,7 +25,7 @@ def collect_recent_tweets(times,texts,users,clss,prob,targets,limit_hours=3):
     return df,time_now
 
 ar = np.array([[1, 2, 3], [4, 5, 6]])
-df = pd.DataFrame(,index=pd.to_datetime(times),columns=['user_name','tweet','target','class','prob'])
+df = pd.DataFrame(78,index=pd.to_datetime(times),columns=['user_name','tweet','target','class','prob'])
 df_ar = pd.DataFrame(ar)
 
 print(ar)
