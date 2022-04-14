@@ -14,14 +14,32 @@ reg9 = re.compile(r'[\[{「〈【［≪《〔＜｛『]+') # 이렇게 생긴 �
 reg10 = re.compile(r'[\]}」〉】］≫》〕＞｝』]+') # 이렇게 생긴 문장부호들 -> >으로 통일
 symbol = ['「','」','.','?','!']
 
+queries = [] # 전체 쿼리
+queries_typhoon = ["태풍"] # 태풍
+queries_downpour = ["폭우", "호우", "비 많", "비가", "장마"] # 호우/폭우
+queries_snow = ["눈 많이", "폭설", "대설", "눈 쌓여"] # 폭설/대설
+queries_gale = ["바람", "강풍", "바람 강해"] # 강풍/풍랑
+queries_drought = ["가뭄", "메마름", "건조"] # 가뭄
+queries_forestfire = ["산불", "화재", "건조"] # 산불
+queries_earthquake = ["지진", "땅이 흔들", "진동"] # 지진
+queries_coldwave = ["한파", "추위", "추워", "춥다", "추움", "얼었", "칼바람", "추운", "영하", "기온이 낮", "온도가 낮", "혹한기", "추웠"] # 한파
+queries_heatwave = ["폭염", "열대야", "더위", "더워", "덥다", "더움", "더운", "고온", "이상고온", "기온이 높", "습도", "온도가 높", "혹서기", "에어컨", "더웠"] # 폭염/열대야
+queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "뿌옇", "뿌연", "공기", "공기가 탁", "대기질"] # 미세먼지/황사
+
+queries = queries_typhoon + queries_downpour + queries_snow + queries_gale + queries_drought + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust
+
+
 def txt2wak(txt):
     m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
-    print(m.pos("이것은 메캅 테스트입니다. 사용자 사전을 등록한 후입니다. 비타500 싹쓰리"))
-    return txt
+    query_found = []
+    for w in m.pos(txt):
+        if w[0] in queries:
+            query_found.append(w[0])
+            # print(w[0])
+    return query_found
 
 # 트윗 텍스트에서 불필요하거나 의미없는 부분 제거 및 변환
 def parge_tweet(tweet):
-    # t = neologdn.normalize(t).lower()
     t = tweet
     t = reg1.sub('', t) # url -> 삭제
     t = reg2.sub('', t) # 계정 태그(@아이디) -> 삭제
@@ -41,30 +59,17 @@ def tweet2wak(tweet):
 
 # list of Tweet -> array of tokens
 def tweets2tokens(tweets):
-    """mecab = Mecab()
-    # print(mecab.morphs(tweets))
-    for tweet in tweets:
-        print(mecab.morphs(tweet))
-        print(mecab.tagger(tweet))"""
-    
+    query_found = []
     for tw in tweets:
-        print("tw: ", tw)
         w = tweet2wak(tw)
-        print("w : ", w)
+        query_found += w
+    print(query_found)
         
 
 # receive list of Tweet and return list of tag of those 
 def classify_tweets(twts):
     toks = tweets2tokens(twts) # 트윗->토큰 변환
     return toks
-
-texts = ["하나도 모르겠당"]
-tweet_classify = classify_tweets(texts)
-
-
-
-
-
 
 
 
