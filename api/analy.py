@@ -1,11 +1,8 @@
-import pandas as pd
-# import io_gcs
-
 from datetime import datetime, timedelta
 
+import pandas as pd
+import numpy as np
 
-# load Tweet data for the last 3 hours
-# -> add latest Tweet and delete Tweet over 3 hours ago
 def collect_recent_tweets(times,texts,users,clss,prob,targets,limit_hours=3):
     # load and concat
     new_data=[[us,tw,ta,cl,pr] for us,tw,ta,cl,pr in zip(users,texts,targets,clss,prob)]
@@ -26,3 +23,13 @@ def collect_recent_tweets(times,texts,users,clss,prob,targets,limit_hours=3):
     limit_time = (time_now-timedelta(hours=limit_hours)).strftime('%Y.%m.%d %H:%M:%S')
     df = df[df.index > limit_time]
     return df,time_now
+
+ar = np.array([[1, 2, 3], [4, 5, 6]])
+df = pd.DataFrame(,index=pd.to_datetime(times),columns=['user_name','tweet','target','class','prob'])
+df_ar = pd.DataFrame(ar)
+
+print(ar)
+
+print('\n')
+
+print(df_ar)

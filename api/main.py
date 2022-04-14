@@ -1,6 +1,6 @@
 import time
 import retrieve, classify
-
+import pandas as pd
 queries = [] # 전체 쿼리
 queries_typhoon = ["태풍"] # 태풍
 queries_downpour = ["폭우", "호우", "비 많", "비가", "장마"] # 호우/폭우
@@ -25,7 +25,13 @@ def main(interval=60):
         # 트윗 가져오기 (retrieve)
         twids, times, texts, users = retrieve.search_tweets(queries) # 추출
         twids, times, texts, users = retrieve.remove_duplicates(twids, times, texts, users) # 중복제거
+        print(twids)
+        print(times)
+        print(texts)
+        print(users)
 
+        #df = pd.DataFrame(data, index = pd.to_datetime(times), columns = ['user_name', 'tweet', 'target', 'class', 'prob'])
+        #print(data)
         t1 = time.time()
 
         print('retrieve: {:.2f}s'.format(t1-t0))
