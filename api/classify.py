@@ -1,9 +1,9 @@
 import re
 # windows mecab
-from eunjeon import Mecab
+#from eunjeon import Mecab
 
 # mac mecab
-# import MeCab
+from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -32,18 +32,24 @@ queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "�
 queries = queries_typhoon + queries_downpour + queries_snow + queries_gale + queries_drought + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust
 
 
+
 def txt2wak(txt):
     # windows mecab
-    m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
-    query_found = []
-    for w in m.pos(txt):
-        if w[0] in queries:
-            query_found.append(w[0])
+    # m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+    # query_found = []
+    # for w in m.pos(txt):
+    #     if w[0] in queries:
+    #         query_found.append(w[0])
             # print(w[0])
 
     # mac mecab
-    # m = MeCab.Tagger()
-    # print(m.parse("이것은 메캅 테스트입니다. 사용자 사전을 등록한 후입니다. 비타500 싹쓰리"))
+    m = Mecab()
+    query_found = []
+
+    for w in m.pos(txt):
+        if w[0] in queries:
+            print(txt)
+            query_found.append(w[0])
     return query_found
 
 # 트윗 텍스트에서 불필요하거나 의미없는 부분 제거 및 변환
@@ -72,7 +78,7 @@ def tweets2tokens(tweets):
     for tw in tweets:
         w = tweet2wak(tw)
         query_found += w
-    #print(query_found)
+    # print(query_found)
     return query_found
         
 
