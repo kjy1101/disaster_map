@@ -72,7 +72,8 @@ def tweets2tokens(tweets):
     for tw in tweets:
         w = tweet2wak(tw)
         query_found += w
-    print(query_found)
+    #print(query_found)
+    return query_found
         
 
 # receive list of Tweet and return list of tag of those 

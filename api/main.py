@@ -18,19 +18,28 @@ def main(interval=60):
     queries = queries_typhoon + queries_downpour + queries_snow + queries_gale + queries_drought + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust
 
     while True:
-        print("***")
-        print(time.time())
+        print("****START****")
+        
+        t0 = time.time()
 
         # 트윗 가져오기 (retrieve)
-        # tweet_all = retrieve.search_tweets(queries) # 1분동안 가져옴
         twids, times, texts, users = retrieve.search_tweets(queries) # 추출
         twids, times, texts, users = retrieve.remove_duplicates(twids, times, texts, users) # 중복제거
 
+        t1 = time.time()
+
+        print('retrieve: {:.2f}s'.format(t1-t0))
+
         if len(texts) > 0: # 분석할 트윗이 존재
+
+            t2 = time.time()
 
             # 트윗 분류하기 (classify)
             tweet_classify = classify.classify_tweets(texts) # 텍스트만 가지고 트윗 분류
-            #print(tweet_classify)
+            print(tweet_classify)
+
+            t3 = time.time()
+            print('classify: {:.2f}s'.format(t3-t2))
 
             # 트윗 분석하기 (analyze)
 
