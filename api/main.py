@@ -1,5 +1,5 @@
 import time
-import retrieve, classify
+import retrieve, classify, analyze
 
 queries = [] # 전체 쿼리
 queries_typhoon = ["태풍"] # 태풍
@@ -41,12 +41,19 @@ def main(interval=60):
             t3 = time.time()
             print('classify: {:.2f}s'.format(t3-t2))
 
+            t4 = time.time()
+
             # 트윗 분석하기 (analyze)
+            dataframe = analyze.make_dataframe(tweet_classify) # 데이터프레임 만들기
+            #print(dataframe)
+
+            t5 = time.time()
+            print('analyze: {:.2f}s'.format(t5-t4))
 
         else: # 트윗 없음
             pass
 
-        time.sleep(60) # 60초에 한번씩 실행
+        time.sleep(1) # 60초에 한번씩 실행
 
 
 if __name__ == '__main__':
