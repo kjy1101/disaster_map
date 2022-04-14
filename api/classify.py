@@ -1,10 +1,6 @@
-#
-# import main
-import pickle
-#import numpy as np
 import re
-#from eunjeon import Mecab
 import MeCab
+from eunjeon import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -20,8 +16,10 @@ symbol = ['「','」','.','?','!']
 
 def txt2wak(txt):
     m = MeCab.Tagger()
-    a = m.parse(txt)
-    return a
+    print(m.parse("이것은 메캅 테스트입니다. 사용자 사전을 등록한 후입니다. 비타500 싹쓰리"))
+    # m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+    # print(m.pos("이것은 메캅 테스트입니다. 사용자 사전을 등록한 후입니다. 비타500 싹쓰리"))
+    return txt
 
 # 트윗 텍스트에서 불필요하거나 의미없는 부분 제거 및 변환
 def parge_tweet(tweet):
