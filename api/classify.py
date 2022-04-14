@@ -1,6 +1,9 @@
 import re
-#import MeCab
+# windows mecab
 from eunjeon import Mecab
+
+# mac mecab
+# import MeCab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -30,12 +33,17 @@ queries = queries_typhoon + queries_downpour + queries_snow + queries_gale + que
 
 
 def txt2wak(txt):
+    # windows mecab
     m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
     query_found = []
     for w in m.pos(txt):
         if w[0] in queries:
             query_found.append(w[0])
             # print(w[0])
+
+    # mac mecab
+    # m = MeCab.Tagger()
+    # print(m.parse("이것은 메캅 테스트입니다. 사용자 사전을 등록한 후입니다. 비타500 싹쓰리"))
     return query_found
 
 # 트윗 텍스트에서 불필요하거나 의미없는 부분 제거 및 변환
@@ -56,6 +64,7 @@ def parge_tweet(tweet):
 def tweet2wak(tweet):
     t = parge_tweet(tweet)
     return txt2wak(t)
+
 
 # list of Tweet -> array of tokens
 def tweets2tokens(tweets):
