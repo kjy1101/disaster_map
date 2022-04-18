@@ -1,4 +1,13 @@
-import pandas as pd
+
+
+
+
+
+
+
+
+
+"""import pandas as pd
 # import io_gcs
 
 from datetime import datetime, timedelta
@@ -26,3 +35,4 @@ def collect_recent_tweets(times,texts,users,clss,prob,targets,limit_hours=3):
     limit_time = (time_now-timedelta(hours=limit_hours)).strftime('%Y.%m.%d %H:%M:%S')
     df = df[df.index > limit_time]
     return df,time_now
+"""
