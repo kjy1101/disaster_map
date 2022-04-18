@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.contrib.postgres.fields import ArrayField
 from django.db.models import Model
 
 
@@ -19,50 +20,50 @@ class Mark(models.Model):
 
 
 class Typhoon(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Downpour(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Snow(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Gale(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Drought(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Forestfire(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Earthquake(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Coldwave(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Heatwave(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
 
 
 class Dust(BaseModel):
-    freq = models.IntegerField(default=0)
+    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
