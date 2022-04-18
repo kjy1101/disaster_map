@@ -1,5 +1,5 @@
 import time
-import retrieve, classify, analyze
+import retrieve, classify
 
 queries = [] # 전체 쿼리
 queries_typhoon = ["태풍"] # 태풍
@@ -19,7 +19,7 @@ def main(interval=60):
 
     while True:
         print("****START****")
-        
+
         t0 = time.time()
 
         # 트윗 가져오기 (retrieve)
