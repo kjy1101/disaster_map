@@ -1,5 +1,4 @@
 from django.contrib.gis.db import models as gismodels
-from django.contrib.postgres.fields import ArrayField
 from django.db import models
 
 
@@ -17,6 +16,20 @@ class Mark(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class DisasterTag(models.Model):
+    name=models.CharField(max_length=5)
+    def __str__(self):
+        return self.name
+
+class Tweet(BaseModel):
+    """twid = models.TextField()
+    time = models.TextField()
+    text = models.TextField()
+    user = models.TextField()"""
+    disaster_tag = models.ManyToManyField('DisasterTag', blank=True)
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Typhoon(BaseModel):

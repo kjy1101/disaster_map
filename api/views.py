@@ -18,3 +18,6 @@ class MarkViewSet(viewsets.ReadOnlyModelViewSet):
     queryset = Mark.objects.all()
     serializer_class = MarkSerializer
 
+
+
+
