@@ -55,26 +55,19 @@ def search_tweets(queries):
     texts = [] # text (텍스트)
     users = [] # user name (유저 이름)
 
-    queryy = ["서초"]
-    stream = twitter_api.GetStreamFilter(track=queryy)
+    queryy = ["토르"]
+    stream = twitter_api.GetStreamFilter(track=queries)
 
     #금지단어->나중에 파일로
     search = '오프'
 
-    delay = 60 * 5 # 60 seconds * 1 minutes
+    delay = 60 * 1 # 60 seconds * 1 minutes
     close_time = time.time() + delay
 
     # 1분동안 트윗 데이터 모으기
     for tweets in stream:
         print(tweets['text'])
         print('----------------------------------')
-        """tweet = {
-            "time" : utc2kst(tweets['created_at']),
-            "text" : tweets['text'],
-            "twid" : tweets['id_str'],
-            "user" : tweets['user']['name']
-        }
-        tweet_all.append(tweet)"""
         if removeRT(tweets['text']):
             times.append(utc2kst(tweets['created_at']))
             texts.append(tweets['text'])

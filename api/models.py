@@ -13,7 +13,8 @@ class BaseModel(Model):
 
 class Mark(models.Model):
     name = models.CharField(max_length=255)
-    location = models.PointField()
+    #location = models.PointField()
+    location = models.PolygonField()
 
     def __str__(self):
         return self.name

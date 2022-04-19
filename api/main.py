@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import time
 import retrieve, classify
+from .models import *
 
 queries = [] # 전체 쿼리
 queries_typhoon = ["태풍"] # 태풍
@@ -55,6 +56,11 @@ def main(interval=60):
             print(texts)
             print(disasters)
             print(regions)
+
+            for twid, time, text, user, disaster, region in zip(twids, times, texts, users, disasters, regions):
+                if disaster == "태풍":
+                    tweet = Typhoon()
+                    
 
 
         else: # 트윗 없음
