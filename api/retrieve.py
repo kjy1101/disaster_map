@@ -66,9 +66,9 @@ def search_tweets(queries):
 
     # 1분동안 트윗 데이터 모으기
     for tweets in stream:
-        print(tweets['text'])
-        print('----------------------------------')
         if removeRT(tweets['text']):
+            print(tweets['text'])
+            print('----------------------------------')
             times.append(utc2kst(tweets['created_at']))
             texts.append(tweets['text'])
             twids.append(tweets['id_str'])
