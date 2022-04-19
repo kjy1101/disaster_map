@@ -1,9 +1,9 @@
 import re, main
 # windows mecab
-from eunjeon import Mecab
+# from eunjeon import Mecab
 
 # mac mecab
-# from konlpy.tag import Mecab
+from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -33,7 +33,10 @@ region = ["창원", "서울", "제주", "양구"]"""
 
 def txt2wak(txt):
     # windows mecab
-    m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+    # m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+
+    # mac mecab
+    m = Mecab()
 
     region_tag = "None"
     disaster_tag = "None"
@@ -70,14 +73,6 @@ def txt2wak(txt):
 
     # print(region_tag, disaster_tag)
 
-    # mac mecab
-    """m = Mecab()
-    query_found = []
-
-    for w in m.pos(txt):
-        if w[0] in queries:
-            print(txt)
-            query_found.append(w[0])"""
     return disaster_tag, region_tag
 
 # 트윗 텍스트에서 불필요하거나 의미없는 부분 제거 및 변환
