@@ -17,66 +17,21 @@ class Mark(models.Model):
     def __str__(self):
         return self.name
 
+# twid, time, text, user, disaster, region
 
 class DisasterTag(models.Model):
     name=models.CharField(max_length=5)
     def __str__(self):
         return self.name
 
+
 class Tweet(BaseModel):
-    """twid = models.TextField()
+    twid = models.TextField()
     time = models.TextField()
     text = models.TextField()
-    user = models.TextField()"""
-    disaster_tag = models.ManyToManyField('DisasterTag', blank=True)
+    user = models.TextField()
+    disaster_tag = models.ForeignKey(DisasterTag, on_delete=models.CASCADE)
     location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
-
-class Typhoon(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Downpour(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Snow(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Gale(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Drought(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Forestfire(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Earthquake(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Coldwave(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Heatwave(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
-
-
-class Dust(BaseModel):
-    text = models.TextField()
-    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
+    def __str__(self):
+        return str(self.disaster_tag) + " - " + str(self.text)

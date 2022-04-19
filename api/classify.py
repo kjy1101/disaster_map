@@ -1,9 +1,10 @@
-import re, main
+import re
+# from .main import *
 # windows mecab
-# from eunjeon import Mecab
+from eunjeon import Mecab
 
 # mac mecab
-from konlpy.tag import Mecab
+#from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -17,7 +18,6 @@ reg9 = re.compile(r'[\[{「〈【［≪《〔＜｛『]+') # 이렇게 생긴 �
 reg10 = re.compile(r'[\]}」〉】］≫》〕＞｝』]+') # 이렇게 생긴 문장부호들 -> >으로 통일
 symbol = ['「','」','.','?','!']
 
-"""queries = [] # 전체 쿼리
 queries_typhoon = ["태풍"] # 태풍
 queries_downpour = ["폭우", "호우", "비 많", "비가", "장마"] # 호우/폭우
 queries_snow = ["눈 많이", "폭설", "대설", "눈 쌓여"] # 폭설/대설
@@ -27,9 +27,9 @@ queries_coldwave = ["한파", "추위", "추워", "춥다", "추움", "얼었", 
 queries_heatwave = ["폭염", "열대야", "더위", "더워", "덥다", "더움", "더운", "고온", "이상고온", "기온이 높", "습도", "온도가 높", "혹서기", "에어컨", "더웠"] # 폭염/열대야
 queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "뿌옇", "뿌연", "공기", "공기가 탁", "대기질"] # 미세먼지/황사
 
-queries = queries_typhoon + queries_downpour + queries_snow + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust
-
-region = ["창원", "서울", "제주", "양구"]"""
+region = ["서울", "경기", "강원", "충북", "충남", "전북", "전라", "경북", "경남", "부산", "인천", "대구", "울산", "광주", "대전", "세종", "창원", "제주", "양구",
+          "수원", "고양", "용인", "상남", "부천", "화성", "남양주", "안산", "안양", "평택", "원주", "춘천", "강릉", "속초", "청주", "충주", "천안", "아산", "포항",
+          "구미", "전주", "익산", "창원", "김헤", "양산", "여수", "순천", "서귀포", "양산", "진주", "거제"]
 
 def txt2wak(txt):
     # windows mecab
@@ -42,32 +42,32 @@ def txt2wak(txt):
     disaster_tag = "None"
 
     for w in m.pos(txt):
-        if w[0] in main.region:
+        if w[0] in region:
             region_tag = w[0]
 
     for w in m.pos(txt):
-        if w[0] in main.queries_typhoon:
+        if w[0] in queries_typhoon:
             disaster_tag = "태풍"
             break
-        elif w[0] in main.queries_downpour:
+        elif w[0] in queries_downpour:
             disaster_tag = "폭우"
             break
-        elif w[0] in main.queries_snow:
+        elif w[0] in queries_snow:
             disaster_tag = "폭설"
             break
-        elif w[0] in main.queries_forestfire:
+        elif w[0] in queries_forestfire:
             disaster_tag = "산불"
             break
-        elif w[0] in main.queries_earthquake:
+        elif w[0] in queries_earthquake:
             disaster_tag = "지진"
             break
-        elif w[0] in main.queries_coldwave:
+        elif w[0] in queries_coldwave:
             disaster_tag = "한파"
             break
-        elif w[0] in main.queries_heatwave:
+        elif w[0] in queries_heatwave:
             disaster_tag = "폭염"
             break
-        elif w[0] in main.queries_dust:
+        elif w[0] in queries_dust:
             disaster_tag = "미세먼지"
             break
 
