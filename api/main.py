@@ -62,17 +62,20 @@ def tweet_main(interval=60):
             print(regions)
 
             for twid, time, text, user, disaster, region in zip(twids, times, texts, users, disasters, regions):
-                tag_d = DisasterTag.objects.get(name=disaster)
-                mark = Mark.objects.get(pk=7)
-                tweet = Tweet(
-                    twid=twid,
-                    time=time,
-                    text=text,
-                    user=user,
-                    disaster_tag=tag_d,
-                    location=mark
-                )
-                tweet.save()
+                if disaster is not "None":
+                    tag_d = DisasterTag.objects.get(name=disaster)
+                    mark = Mark.objects.get(pk=7)
+                    tweet = Tweet(
+                        twid=twid,
+                        time=time,
+                        text=text,
+                        user=user,
+                        disaster_tag=tag_d,
+                        location=mark
+                    )
+                    tweet.save()
+                else: # 잘못 들어온 트윗은 저장X
+                    pass
 
         else: # 트윗 없음
             pass
