@@ -1,9 +1,9 @@
-from django.contrib.gis.db import models
+from django.contrib.gis.db import models as gismodels
 from django.contrib.postgres.fields import ArrayField
-from django.db.models import Model
+from django.db import models
 
 
-class BaseModel(Model):
+class BaseModel(models.Model):
     id = models.AutoField(primary_key=True)
     created_at = models.DateTimeField(auto_now_add=True, editable=False)
     updated_at = models.DateTimeField(auto_now=True, editable=False)
@@ -13,57 +13,57 @@ class BaseModel(Model):
 
 class Mark(models.Model):
     name = models.CharField(max_length=255)
-    location = models.PointField()
+    location = gismodels.PolygonField()
 
     def __str__(self):
         return self.name
 
 
 class Typhoon(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Downpour(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Snow(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Gale(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Drought(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Forestfire(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Earthquake(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Coldwave(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Heatwave(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
 
 class Dust(BaseModel):
-    freq = ArrayField(models.CharField(max_length=20), blank=True)
     text = models.TextField()
+    location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)

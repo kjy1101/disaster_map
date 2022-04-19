@@ -61,13 +61,13 @@ def search_tweets(queries):
     #금지단어->나중에 파일로
     search = '오프'
 
-    delay = 60 * 5 # 60 seconds * 1 minutes
+    delay = 60 * 1 # 60 seconds * 1 minutes
     close_time = time.time() + delay
 
     # 1분동안 트윗 데이터 모으기
     for tweets in stream:
-        print(tweets['text'])
-        print('----------------------------------')
+        # print(tweets['text'])
+        # print('----------------------------------')
         """tweet = {
             "time" : utc2kst(tweets['created_at']),
             "text" : tweets['text'],
@@ -83,7 +83,7 @@ def search_tweets(queries):
 
         #금지단어 제외시키기
         texts = [word.strip(search) for word in texts]
-        print(texts)
+        # print(texts)
 
         if time.time() > close_time:
             break
