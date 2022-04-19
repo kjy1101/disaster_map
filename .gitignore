@@ -259,7 +259,5 @@ fabric.properties
 /.idea/
 /.env.prod
 
-disaster_map_setup.bat
-stream_result.txt
-
 mecab-python-0.996/
+TL_SCCO_CTPRVN.json
