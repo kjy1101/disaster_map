@@ -62,9 +62,9 @@ def tweet_main(interval=60):
             print(regions)
 
             for twid, time, text, user, disaster, region in zip(twids, times, texts, users, disasters, regions):
-                if disaster != "None":
+                if disaster != "None" and region != "None":
                     tag_d = DisasterTag.objects.get(name=disaster)
-                    mark = Mark.objects.get(pk=143)
+                    mark = Mark.objects.get(name=region)
                     tweet = Tweet(
                         twid=twid,
                         time=time,
@@ -82,6 +82,8 @@ def tweet_main(interval=60):
 
         #time.sleep(1) # 60초에 한번씩 실행
 
+# def modify_region(region):
+#
 
 if __name__ == '__main__':
     tweet_main(interval=60)
