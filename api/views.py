@@ -13,8 +13,9 @@ from django.shortcuts import render
 from django.contrib.gis.geos import Polygon, MultiPolygon
 
 
-class MapView(TemplateView):
-    template_name = "map.html"
+class MapView(APIView):
+    def get(self, request):
+        return render(request, 'map.html')
 
 
 class MarkViewSet(viewsets.ReadOnlyModelViewSet):

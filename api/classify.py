@@ -4,7 +4,7 @@ import re
 from eunjeon import Mecab
 
 # mac mecab
-#from konlpy.tag import Mecab
+from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -27,9 +27,23 @@ queries_coldwave = ["한파", "추위", "추워", "춥다", "추움", "얼었", 
 queries_heatwave = ["폭염", "열대야", "더위", "더워", "덥다", "더움", "더운", "고온", "이상고온", "기온이 높", "습도", "온도가 높", "혹서기", "에어컨", "더웠"] # 폭염/열대야
 queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "뿌옇", "뿌연", "공기", "공기가 탁", "대기질"] # 미세먼지/황사
 
-region = ["서울", "경기", "강원", "충북", "충남", "전북", "전라", "경북", "경남", "부산", "인천", "대구", "울산", "광주", "대전", "세종", "창원", "제주", "양구",
-          "수원", "고양", "용인", "상남", "부천", "화성", "남양주", "안산", "안양", "평택", "원주", "춘천", "강릉", "속초", "청주", "충주", "천안", "아산", "포항",
-          "구미", "전주", "익산", "창원", "김헤", "양산", "여수", "순천", "서귀포", "양산", "진주", "거제"]
+region_seoul = ["서울", "서울특별시", "송파", "강서", "강남", "노원", "관악", "은평", "양천", "성북", "강동", "서초"]
+region_gyeoung = ["경기", "경기도", "수원", "고양", "용인", "성남", "부천", "화성", "남양주", "안산", "안양", "평택"]
+region_gang = ["강원", "강원도", "원주", "춘천", "강릉", "속초"]
+region_chungbuk = ["충북", "충청북도", "청주", "충주"]
+region_chungnam = ["충남", "충청남도", "천안", "아산",]
+region_jeounbuk = ["전북", "전라북도", "전주", "익산"]
+region_jeounam = ["전남", "전라남도", "여수", "순천",]
+region_gyeoungbuk = ["경상북도", "경북", "포항","구미"]
+region_gyeoungnam = ["경남", "경상남도", "창원", "김헤", "양산", "진주", "거제"]
+region_busan = ["부산", "부산광역시"]
+region_incheoun = ["인천", "인천광역시"]
+region_daegu = ["대구", "대구광역시"]
+region_ullsan = ["울산", "울산광역시"]
+region_gwang = ["광주", "광주광역시"]
+region_daejun = ["대전", "대전광역시"]
+region_saejon = ["세종", "세특별자치시"]
+region_jeju = ["제주", "제주도", "서귀포", "제주특별자치도"]
 
 def txt2wak(txt):
     # windows mecab
@@ -42,8 +56,57 @@ def txt2wak(txt):
     disaster_tag = "None"
 
     for w in m.pos(txt):
-        if w[0] in region:
-            region_tag = w[0]
+        if w[0] in region_seoul:
+            region_tag = "서울특별시"
+            break
+        elif w[0] in region_gyeoung:
+            region_tag = "경기도"
+            break
+        elif w[0] in region_gang:
+            region_tag = "강원도"
+            break
+        elif w[0] in region_chungbuk:
+            region_tag = "충청북도"
+            break
+        elif w[0] in region_chungnam:
+            region_tag = "충청남도"
+            break
+        elif w[0] in region_jeounbuk:
+            region_tag = "전라북도"
+            break
+        elif w[0] in region_jeounam:
+            region_tag = "전라남도"
+            break
+        elif w[0] in region_gyeoungbuk:
+            region_tag = "경상북도"
+            break
+        elif w[0] in region_gyeoungnam:
+            region_tag = "경상남도"
+            break
+        elif w[0] in region_busan:
+            region_tag = "부산광역시"
+            break
+        elif w[0] in region_incheoun:
+            region_tag = "인천광역시"
+            break
+        elif w[0] in region_daegu:
+            region_tag = "대구광역시"
+            break
+        elif w[0] in region_ullsan:
+            region_tag = "울산광역시"
+            break
+        elif w[0] in region_gwang:
+            region_tag = "광주광역시"
+            break
+        elif w[0] in region_daejun:
+            region_tag = "대전광역시"
+            break
+        elif w[0] in region_saejon:
+            region_tag = "세종특별자치시"
+            break
+        elif w[0] in region_jeju:
+            region_tag = "제주특별자치도"
+            break
 
     for w in m.pos(txt):
         if w[0] in queries_typhoon:
@@ -115,4 +178,4 @@ def classify_tweets(twts):
     # print("regions: ", regions)
     return disasters, regions
 
-# classify_tweets(["양구 산불 뉴스 보고 양구 사는 지인 한테 괜찮냐고 톡 했는데... 집 근처라며 보내준 사진... 진짜 세상에 무슨일이야 ㅠㅠㅠㅠㅠㅠ", "창원에 지진났어요? 쿠우웅거리던데...", "어제 밤부터 시작된 제주의 바람은 2022년 첫 태풍이라고....아 기후위기 너무 온몸으로 체감 되고요 여름이 빨리 오려나 ", "눈 많이 왔어"])
+# classify_tweets(["대구 산불 뉴스 보고 양구 사는 지인 한테 괜찮냐고 톡 했는데... 집 근처라며 보내준 사진... 진짜 세상에 무슨일이야 ㅠㅠㅠㅠㅠㅠ", "창원에 지진났어요? 쿠우웅거리던데...", "어제 밤부터 시작된 제주의 바람은 2022년 첫 태풍이라고....아 기후위기 너무 온몸으로 체감 되고요 여름이 빨리 오려나 ", "눈 많이 왔어"])
