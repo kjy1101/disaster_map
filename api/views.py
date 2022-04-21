@@ -10,7 +10,8 @@ from .main import tweet_main
 
 import json
 from django.shortcuts import render
-from django.contrib.gis.geos import Polygon
+from django.contrib.gis.geos import Polygon, MultiPolygon
+
 
 class MapView(TemplateView):
     template_name = "map.html"
@@ -29,6 +30,7 @@ class TweetView(APIView):
     def get(self, request):
         tweet_main()
 
+
 class BoundarySet(APIView):
     def get(self, request):
         file_path = r"./TL_SCCO_CTPRVN.json"
@@ -37,13 +39,24 @@ class BoundarySet(APIView):
             data = json.load(file)
             for i in range(17):
                 print(i, " - ", data["features"][i]["properties"]["CTP_KOR_NM"])
-                poly = Polygon(data["features"][i]["geometry"]["coordinates"][0])
-                markk = Mark(
-                    name = data["features"][i]["properties"]["CTP_KOR_NM"],
+                poly = MultiPolygon(data["features"][i]["geometry"]["coordinates"])
+                print(data["features"][i]["geometry"]["coordinates"])
+                print("-----------------")
+                print(data["features"][i]["geometry"]["coordinates"][0])
+                markk, created = Mark.objects.get_or_create(
+                    name=data["features"][i]["properties"]["CTP_KOR_NM"],
                     location=poly
                 )
-                markk.save()
-            """print(data["features"][0]["properties"]["CTP_KOR_NM"])
+                if created:
+                    markk.save()
+
+            print("file open success")
+
+        return render(request, 'index.html')
+
+
+
+"""print(data["features"][0]["properties"]["CTP_KOR_NM"])
             print(data["features"][0]["geometry"]["coordinates"][0])
             poly = Polygon(data["features"][0]["geometry"]["coordinates"][0])
             # poly = Polygon( [[126.98032377384108, 37.55753610745512], [126.9672775091964, 37.53412613508309], [127.00641630313044, 37.54283768127655], [127.00916288516939, 37.56134633736372], [126.98032377384108, 37.55753610745512]] )
@@ -55,6 +68,3 @@ class BoundarySet(APIView):
                 #location = data["features"][i]["geometry"]["coordinates"][0]
             )
             markk.save()"""
-            print("file open success")
-
-        return render(request, 'index.html')
