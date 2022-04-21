@@ -62,7 +62,7 @@ def tweet_main(interval=60):
             print(regions)
 
             for twid, time, text, user, disaster, region in zip(twids, times, texts, users, disasters, regions):
-                if disaster is not "None":
+                if disaster != "None":
                     tag_d = DisasterTag.objects.get(name=disaster)
                     mark = Mark.objects.get(pk=7)
                     tweet = Tweet(
