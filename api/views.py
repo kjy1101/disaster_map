@@ -11,10 +11,7 @@ from .main import tweet_main
 import json
 from django.shortcuts import render
 from django.contrib.gis.geos import Polygon, MultiPolygon
-<<<<<<< HEAD
 
-=======
->>>>>>> f65d84f86c74251149c7176de8335c4edac5f8c0
 
 class MapView(TemplateView):
     template_name = "map.html"
