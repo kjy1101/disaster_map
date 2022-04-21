@@ -30,6 +30,7 @@ class MarkViewSet(viewsets.ReadOnlyModelViewSet):
 class TweetView(APIView):
     def get(self, request):
         tweet_main()
+        return render(request, 'index.html')
 
 
 class BoundarySet(APIView):
