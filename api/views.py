@@ -51,8 +51,6 @@ class BoundarySet(APIView):
                 )
                 if created:
                     mark_kr.save()
-                else:
-                    return mark_kr
 
             print("file open success")
 
