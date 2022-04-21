@@ -12,12 +12,11 @@ class BaseModel(models.Model):
 
 class Mark(models.Model):
     name = models.CharField(max_length=255)
-    location = gismodels.PolygonField()
+    location = gismodels.MultiPolygonField()
 
     def __str__(self):
         return self.name
 
-# twid, time, text, user, disaster, region
 
 class DisasterTag(models.Model):
     name=models.CharField(max_length=5)
