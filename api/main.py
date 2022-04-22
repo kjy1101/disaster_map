@@ -1,6 +1,5 @@
 # -*- coding: utf-8 -*-
 import time
-#import retrieve, classify
 from .retrieve import *
 from .classify import *
 from .models import *
@@ -15,60 +14,8 @@ queries_earthquake = ["지진", "땅이 흔들", "진동"] # 지진
 queries_coldwave = ["한파", "추위", "추워", "춥다", "추움", "얼었", "칼바람", "추운", "영하", "기온이 낮", "온도가 낮", "혹한기", "추웠"] # 한파
 queries_heatwave = ["폭염", "열대야", "더위", "더워", "덥다", "더움", "더운", "고온", "이상고온", "기온이 높", "온도가 높", "혹서기", "더웠"] # 폭염/열대야
 queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "뿌옇", "뿌연", "공기가 탁", "대기질"] # 미세먼지/황사
-queries_test = ["닥터스트레인지"]
 
-region = ["서울", "경기", "강원", "충북", "충남", "전북", "전라", "경북", "경남", "부산", "인천", "대구", "울산", "광주", "대전", "세종", "창원", "제주", "양구",
-          "수원", "고양", "용인", "상남", "부천", "화성", "남양주", "안산", "안양", "평택", "원주", "춘천", "강릉", "속초", "청주", "충주", "천안", "아산", "포항",
-          "구미", "전주", "익산", "창원", "김해", "양산", "여수", "순천", "서귀포", "양산", "진주", "거제", "서해", "남해", "동해", "일본", "울진"]
-
-queries = queries_typhoon + queries_downpour + queries_snow + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust +queries_test
-
-def tweet_main(interval=60):
-
-    queries = queries_typhoon + queries_downpour + queries_snow + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust +queries_test
-
-    while True:
-        print("****START****")
-
-        # 트윗 가져오기 (retrieve)
-        twids, times, texts, users = search_tweets(queries) # 추출
-        twids, times, texts, users = remove_duplicates(twids, times, texts, users) # 중복제거
-        
-        print("RETRIEVE END")
-        
-        if len(texts) > 0: # 분석할 트윗이 존재
-
-            # 트윗 분류하기 (classify)
-            disasters, regions = classify_tweets(texts)
-
-            print("CLASSIFY END")
-            print(texts)
-            print(disasters)
-            print(regions)
-
-            for twid, time, text, user, disaster, region in zip(twids, times, texts, users, disasters, regions):
-                if disaster != "None" and region != "None":
-                    tag_d = DisasterTag.objects.get(name=disaster)
-                    mark = Mark.objects.get(region_name=region)
-                    tweet = Tweet(
-                        twid=twid,
-                        time=time,
-                        text=text,
-                        user=user,
-                        disaster_tag=tag_d,
-                        location=mark
-                    )
-                    tweet.save()
-                else: # 잘못 들어온 트윗은 저장X
-                    pass
-
-        else: # 트윗 없음
-            pass
-
-        time.sleep(1) # 60초에 한번씩 실행
-
-# def modify_region(region):
-#
+queries = queries_typhoon + queries_downpour + queries_snow + queries_forestfire + queries_earthquake + queries_coldwave + queries_heatwave + queries_dust
 
 def job():
     print("****START****")
@@ -88,7 +35,7 @@ def job():
         for twid, time, text, user, disaster, region in zip(twids, times, texts, users, disasters, regions):
             if disaster != "None" and region != "None":
                 tag_d = DisasterTag.objects.get(name=disaster)
-                mark = Mark.objects.get(name=region)
+                mark = Mark.objects.get(region_name=region)
                 tweet = Tweet(
                     twid=twid,
                     time=time,
@@ -98,7 +45,6 @@ def job():
                     location=mark
                 )
                 tweet.save()
-
             else: # 잘못 들어온 트윗은 저장X
                 pass
 
@@ -112,6 +58,3 @@ def cron_tweet():
     sched = BackgroundScheduler()
     sched.add_job(job, 'interval', seconds=60, id='cron_tweet')
     sched.start()
-
-# if __name__ == '__main__':
-#     tweet_main(interval=60)
