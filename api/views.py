@@ -17,7 +17,7 @@ class MapView(APIView):
     def get(self, request):
         marks = Mark.objects.all()
         for mark in marks:
-            if mark.name == None:
+            if mark.name is None:
                 mark.name = mark.region_name
                 mark.save()
         tweets = Tweet.objects.all()
