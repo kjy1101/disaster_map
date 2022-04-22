@@ -18,7 +18,7 @@ async function load_markers() {
 async function render_markers() {
     const markers = await load_markers();
     L.geoJSON(markers)
-    .bindPopup((layer) => layer.feature.properties.name)
+    .bindPopup((layer) => layer.feature.properties.region_name)
     .addTo(map);
 }
 

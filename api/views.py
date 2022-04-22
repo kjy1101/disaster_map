@@ -2,7 +2,7 @@ from django.views.generic.base import TemplateView
 from rest_framework import viewsets
 from rest_framework_gis import filters
 
-from .models import Mark
+from .models import Mark, Tweet
 from .serializers import MarkSerializer
 
 from rest_framework.views import APIView
@@ -15,6 +15,16 @@ from django.contrib.gis.geos import Polygon, MultiPolygon
 
 class MapView(APIView):
     def get(self, request):
+        marks = Mark.objects.all()
+        for mark in marks:
+            if mark.name == None:
+                mark.name = mark.region_name
+                mark.save()
+        tweets = Tweet.objects.all()
+        for tweet in tweets:
+            mark = Mark.objects.get(region_name=tweet.location)
+            mark.name = tweet.text
+            mark.save()
         return render(request, 'map.html')
 
 
@@ -47,7 +57,7 @@ class BoundarySet(APIView):
 
                 poly = MultiPolygon(polys)
                 mark_kr, created = Mark.objects.get_or_create(
-                    name = data["features"][i]["properties"]["CTP_KOR_NM"],
+                    region_name=data["features"][i]["properties"]["CTP_KOR_NM"],
                     location=poly
                 )
                 if created:
