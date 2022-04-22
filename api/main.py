@@ -45,7 +45,7 @@ def job():
                     location=mark
                 )
                 tweet.save()
-            else: # 잘못 들어온 트윗은 저장X
+            else:  # 잘못 들어온 트윗은 저장X
                 pass
 
     else: # 트윗 없음
