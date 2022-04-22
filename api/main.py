@@ -88,7 +88,7 @@ def job():
         for twid, time, text, user, disaster, region in zip(twids, times, texts, users, disasters, regions):
             if disaster != "None" and region != "None":
                 tag_d = DisasterTag.objects.get(name=disaster)
-                mark = Mark.objects.get(name=region)
+                mark = Mark.objects.get(region_name=region)
                 tweet = Tweet(
                     twid=twid,
                     time=time,
@@ -98,8 +98,7 @@ def job():
                     location=mark
                 )
                 tweet.save()
-
-            else: # 잘못 들어온 트윗은 저장X
+            else:  # 잘못 들어온 트윗은 저장X
                 pass
 
     else: # 트윗 없음
