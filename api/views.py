@@ -6,7 +6,7 @@ from .models import Mark
 from .serializers import MarkSerializer
 
 from rest_framework.views import APIView
-from .main import tweet_main
+#from .main import tweet_main
 
 import json
 from django.shortcuts import render
@@ -27,10 +27,10 @@ class MarkViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = MarkSerializer
 
 
-class TweetView(APIView):
+"""class TweetView(APIView):
     def get(self, request):
         tweet_main()
-        return render(request, 'index.html')
+        return render(request, 'index.html')"""
 
 
 class BoundarySet(APIView):
@@ -57,3 +57,4 @@ class BoundarySet(APIView):
             print("file open success")
 
         return render(request, 'index.html')
+

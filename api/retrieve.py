@@ -28,6 +28,8 @@ twitter_api = twitter.Api(consumer_key=twitter_consumer_key,
                           access_token_key=twitter_access_token, 
                           access_token_secret=twitter_access_secret)
 
+ew = ["만남", "조건만남", "파트너스", "섹트", "클럽", "성인용품"]
+
 # remove RT tweets
 def removeRT(text):
 
@@ -43,6 +45,12 @@ def utc2kst(utc_str):
     kst_str = kst.strftime('%Y.%m.%d %H:%M:%S')
     return kst_str
 
+def exceptWord(txt):
+    for word in txt:
+        if word in ew:
+            return False
+    return True
+
 # 자연재해마다 사용할 검색 키워드 queries에 모두 리스트로 저장해서 넘김
 # ex. queries= ["지진", "earthquake", "진동", "흔들렸"]
 # 1분에 한번씩 호출됨
@@ -55,18 +63,18 @@ def search_tweets(queries):
     texts = [] # text (텍스트)
     users = [] # user name (유저 이름)
 
-    queryy = ["토르"]
+    #queryy = ["토르"]
     stream = twitter_api.GetStreamFilter(track=queries)
 
     #금지단어->나중에 파일로
-    search = '오프'
+    # search = '오프'
 
     delay = 60 * 1 # 60 seconds * 1 minutes
     close_time = time.time() + delay
 
     # 1분동안 트윗 데이터 모으기
     for tweets in stream:
-        if removeRT(tweets['text']):
+        if removeRT(tweets['text']) and exceptWord(tweets['text']):
             print(tweets['text'])
             print('----------------------------------')
             times.append(utc2kst(tweets['created_at']))
@@ -75,10 +83,10 @@ def search_tweets(queries):
             users.append(tweets['user']['name'])
 
         #금지단어 제외시키기
-        texts = [word.strip(search) for word in texts]
+        # texts = [word.strip(search) for word in texts]
         # print(texts)
 
-        if time.time() > close_time:
+        if time.time() >= close_time:
             break
         
     # 1분동안 트윗 데이터 모은 후 모두 반환
