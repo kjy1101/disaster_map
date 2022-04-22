@@ -28,7 +28,7 @@ twitter_api = twitter.Api(consumer_key=twitter_consumer_key,
                           access_token_key=twitter_access_token, 
                           access_token_secret=twitter_access_secret)
 
-ew = ["조건만남", "파트너스", "섹트", "클럽", "성인용품"]
+ew = ["조건만남", "파트너스", "섹트", "클럽", "성인용품", "#조건만남", "출장만남", "#출장만남"]
 
 # remove RT tweets
 def removeRT(text):
@@ -50,6 +50,7 @@ def exceptWord(txt):
     for word in txt.split():
         if word in ew:
             print("해당 트윗 검열됨")
+            print('----------------------------------')
             return False
     return True
 
