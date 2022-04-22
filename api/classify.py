@@ -4,7 +4,7 @@ import re
 from eunjeon import Mecab
 
 # mac mecab
-from konlpy.tag import Mecab
+#from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -34,7 +34,7 @@ region_chungbuk = ["충북", "충청북도", "청주", "충주"]
 region_chungnam = ["충남", "충청남도", "천안", "아산",]
 region_jeounbuk = ["전북", "전라북도", "전주", "익산"]
 region_jeounam = ["전남", "전라남도", "여수", "순천",]
-region_gyeoungbuk = ["경상북도", "경북", "포항","구미"]
+region_gyeoungbuk = ["경상북도", "경북", "포항","구미", "울진"]
 region_gyeoungnam = ["경남", "경상남도", "창원", "김헤", "양산", "진주", "거제"]
 region_busan = ["부산", "부산광역시"]
 region_incheoun = ["인천", "인천광역시"]
@@ -47,10 +47,10 @@ region_jeju = ["제주", "제주도", "서귀포", "제주특별자치도"]
 
 def txt2wak(txt):
     # windows mecab
-    # m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+    m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
 
     # mac mecab
-    m = Mecab()
+    #m = Mecab()
 
     region_tag = "None"
     disaster_tag = "None"
