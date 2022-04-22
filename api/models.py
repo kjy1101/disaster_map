@@ -17,7 +17,7 @@ class Mark(models.Model):
     name = models.TextField(blank=True)
 
     def __str__(self):
-        return self.name
+        return self.region_name
 
 
 
