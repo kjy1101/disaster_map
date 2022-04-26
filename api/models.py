@@ -14,7 +14,6 @@ class BaseModel(models.Model):
 class Mark(models.Model):
     location = gismodels.MultiPolygonField()
     region_name = models.CharField(max_length=255)
-    name = models.TextField(blank=True)
 
     def __str__(self):
         return self.region_name
@@ -32,7 +31,7 @@ class Tweet(BaseModel):
     time = models.TextField()
     text = models.TextField()
     user = models.TextField()
-    disaster_tag = models.ForeignKey(DisasterTag, on_delete=models.CASCADE)
+    disaster_tag = models.ForeignKey(DisasterTag, on_delete=models.CASCADE, null=True, blank=True)
     location = models.ForeignKey(Mark, on_delete=models.CASCADE, null=True, blank=True)
 
     def __str__(self):

@@ -15,16 +15,16 @@ from django.contrib.gis.geos import Polygon, MultiPolygon
 
 class MapView(APIView):
     def get(self, request):
-        marks = Mark.objects.all()
-        for mark in marks:
-            if mark.name is None:
-                mark.name = mark.region_name
-                mark.save()
-        tweets = Tweet.objects.all()
-        for tweet in tweets:
-            mark = Mark.objects.get(region_name=tweet.location)
-            mark.name = tweet.text
-            mark.save()
+        # marks = Mark.objects.all()
+        # for mark in marks:
+        #     if mark.name is None:
+        #         mark.name = mark.region_name
+        #         mark.save()
+        # tweets = Tweet.objects.all()
+        # for tweet in tweets:
+        #     mark = Mark.objects.get(region_name=tweet.location)
+        #     mark.name = tweet.text
+        #     mark.save()
         return render(request, 'map.html')
 
 

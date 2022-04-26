@@ -57,7 +57,7 @@ class MarkSerializer(serializers.GeoFeatureModelSerializer):
     #     return None
 
     class Meta:
-        fields = ("id", "name", "region_name", "tweet")
+        fields = ("id", "region_name", "tweet")
         geo_field = "location"
         model = Mark
 
