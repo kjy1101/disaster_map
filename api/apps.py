@@ -7,4 +7,4 @@ class ApiConfig(AppConfig):
         from .models import Tweet, DisasterTag, Mark
         from .main import cron_tweet
         print("ready")
-        # cron_tweet()
+        cron_tweet()
