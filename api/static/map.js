@@ -14,12 +14,15 @@ async function load_markers() {
     const geojson = await response.json()
     return geojson
 }
-
+//.bindPopup((layer) => markers.feature.properties.name)
 async function render_markers() {
     const markers = await load_markers();
-    L.geoJSON(markers)
-    .bindPopup((layer) => layer.feature.properties.name)
-    .addTo(map);
+    L.geoJSON(markers, {
+        onEachFeature : function (feature, layer) {
+            layer.bindPopup('tweet: ' + feature.properties.tweet[0].text+ ' user: '+ feature.properties.tweet[0].user
+            +' time: '+ feature.properties.tweet[0].time + ' disaster: '+ feature.properties.tweet[0].disaster_tag);
+        }
+    }).addTo(map);
 }
 
 map.on("moveend", render_markers);

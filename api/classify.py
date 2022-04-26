@@ -1,10 +1,10 @@
 import re
 # from .main import *
 # windows mecab
-from eunjeon import Mecab
+# from eunjeon import Mecab
 
 # mac mecab
-# from konlpy.tag import Mecab
+from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -28,7 +28,7 @@ queries_heatwave = ["폭염", "열대야", "더위", "더워", "덥다", "더움
 queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "뿌옇", "뿌연", "공기", "공기가 탁", "대기질"] # 미세먼지/황사
 
 region_seoul = ["서울", "서울특별시", "송파", "강서", "강남", "노원", "관악", "은평", "양천", "성북", "강동", "서초", "영등포"]
-region_gyeoung = ["경기", "경기도", "수원", "고양", "용인", "성남", "부천", "화성", "남양주", "안산", "안양", "평택"]
+region_gyeoung = ["경기", "경기도", "수원", "고양", "용인", "성남", "부천", "화성", "남양주", "안산", "안양", "평택", "고양시"]
 region_gang = ["강원", "강원도", "원주", "춘천", "강릉", "속초"]
 region_chungbuk = ["충북", "충청북도", "청주", "충주"]
 region_chungnam = ["충남", "충청남도", "천안", "아산",]
@@ -47,10 +47,10 @@ region_jeju = ["제주", "제주도", "서귀포", "제주특별자치도"]
 
 def txt2wak(txt):
     # windows mecab
-    m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+    # m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
 
     # mac mecab
-    # m = Mecab()
+    m = Mecab()
 
     region_tag = "None"
     disaster_tag = "None"
