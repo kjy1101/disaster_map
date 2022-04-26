@@ -32,7 +32,14 @@ class MarkSerializer(serializers.GeoFeatureModelSerializer):
 
     def get_tweet(self, obj):
         tweets = obj.tweet_set.all().order_by('-time')
-        return TweetSerializer(instance=tweets, many=True, context=self.context).data
+        check = obj.tweet_set.exists()
+        if check:
+            return TweetSerializer(instance=tweets, many=True, context=self.context).data
+        else:
+            tweet = Tweet.objects.create(time="default", text="default", twid="default", user="default", location=obj,
+                                        disaster_tag_id=1)
+            return TweetSerializer(instance=tweet, context=self.context).data
+
     #
     # def get_time(self, obj):
     #     if obj.tweet_set.filter(location=obj) is not None:
