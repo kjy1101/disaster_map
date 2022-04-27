@@ -20,8 +20,7 @@ async function render_markers() {
     const markers = await load_markers();
     L.geoJSON(markers, {
         onEachFeature : function (feature, layer) {
-            layer.bindPopup('tweet: ' + feature.properties.tweet[0].text + ' user: '+ feature.properties.tweet[0].user
-            +' time: '+ feature.properties.tweet[0].time + ' disaster: '+ feature.properties.tweet[0].disaster_tag);
+            layer.bindPopup("<img src='https://upload.wikimedia.org/wikipedia/ko/9/9e/%ED%8A%B8%EC%9C%84%ED%84%B0_%EB%A1%9C%EA%B3%A0_%282012%29.svg' style='width:20px;'><p style='display:flow-root;'><span style='float:left;font-weight:700'>@"+feature.properties.tweet[0].user+"</span><span style='float:right;color:gray;'>"+feature.properties.tweet[0].time+"</span></p><p>"+feature.properties.region_name+" - "+feature.properties.tweet[0].disaster_tag+"</p><p>"+feature.properties.tweet[0].text+"</p>");
         }
     }).addTo(map);
 }

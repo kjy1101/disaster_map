@@ -1,10 +1,10 @@
 import re
 # from .main import *
 # windows mecab
-# from eunjeon import Mecab
+from eunjeon import Mecab
 
 # mac mecab
-from konlpy.tag import Mecab
+# from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -22,7 +22,7 @@ queries_typhoon = ["태풍"] # 태풍
 queries_downpour = ["폭우", "호우", "비 많", "비가", "장마"] # 호우/폭우
 queries_snow = ["눈 많이", "폭설", "대설", "눈 쌓여"] # 폭설/대설
 queries_forestfire = ["산불", "화재", "건조"] # 산불
-queries_earthquake = ["지진", "땅이 흔들", "진동"] # 지진
+queries_earthquake = ["지진", "땅이 흔들"] # 지진
 queries_coldwave = ["한파", "추위", "추워", "춥다", "추움", "얼었", "칼바람", "추운", "영하", "기온이 낮", "온도가 낮", "혹한기", "추웠"] # 한파
 queries_heatwave = ["폭염", "열대야", "더위", "더워", "덥다", "더움", "더운", "고온", "이상고온", "기온이 높", "습도", "온도가 높", "혹서기", "에어컨", "더웠"] # 폭염/열대야
 queries_dust = ["미세먼지", "황사", "초미세먼지", "대기오염", "뿌옇", "뿌연", "공기", "공기가 탁", "대기질"] # 미세먼지/황사
@@ -47,10 +47,10 @@ region_jeju = ["제주", "제주도", "서귀포", "제주특별자치도"]
 
 def txt2wak(txt):
     # windows mecab
-    # m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+    m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
 
     # mac mecab
-    m = Mecab()
+    # m = Mecab()
 
     region_tag = "None"
     disaster_tag = "None"
