@@ -20,7 +20,13 @@ async function render_markers() {
     const markers = await load_markers();
     L.geoJSON(markers, {
         onEachFeature : function (feature, layer) {
-            layer.bindPopup("<img src='https://upload.wikimedia.org/wikipedia/ko/9/9e/%ED%8A%B8%EC%9C%84%ED%84%B0_%EB%A1%9C%EA%B3%A0_%282012%29.svg' style='width:20px;'><p style='display:flow-root;'><span style='float:left;font-weight:700'>@"+feature.properties.tweet[0].user+"</span><span style='float:right;color:gray;'>"+feature.properties.tweet[0].time+"</span></p><p>"+feature.properties.region_name+" - "+feature.properties.tweet[0].disaster_tag+"</p><p>"+feature.properties.tweet[0].text+"</p>");
+            popupstring = "<div style='overflow:auto;height:200px;'>"
+            num = Math.min(feature.properties.tweet.length, 5)
+            for (var i=0;i<num;i++){
+                popupstring += "<img src='https://upload.wikimedia.org/wikipedia/ko/9/9e/%ED%8A%B8%EC%9C%84%ED%84%B0_%EB%A1%9C%EA%B3%A0_%282012%29.svg' style='width:20px;'><p style='display:flow-root;'><span style='float:left;font-weight:700'>@"+feature.properties.tweet[i].user+"</span><span style='float:right;color:gray;'>"+feature.properties.tweet[i].time+"</span></p><p>"+feature.properties.region_name+" - "+feature.properties.tweet[i].disaster_tag+"</p><p>"+feature.properties.tweet[i].text+"</p><hr>"
+            }
+            popupstring += "</div>"
+            layer.bindPopup(popupstring);
         }
     }).addTo(map);
 }
