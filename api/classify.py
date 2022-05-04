@@ -1,10 +1,10 @@
 import re
 # from .main import *
 # windows mecab
-from eunjeon import Mecab
+# from eunjeon import Mecab
 
 # mac mecab
-# from konlpy.tag import Mecab
+from konlpy.tag import Mecab
 
 reg1 = re.compile(r'https?://[a-zA-Z0-9_/:%#\$&\?\(\)~\.=+-]*') # url -> 삭제
 reg2 = re.compile(r'(@)[a-zA-Z0-9_]*:*') # 계정 태그(@아이디) -> 삭제
@@ -47,10 +47,10 @@ region_jeju = ["제주", "제주도", "서귀포", "제주특별자치도"]
 
 def txt2wak(txt):
     # windows mecab
-    m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
+    # m = Mecab(dicpath='C:/mecab/mecab-ko-dic')
 
     # mac mecab
-    # m = Mecab()
+    m = Mecab()
 
     region_tag = "None"
     disaster_tag = "None"
