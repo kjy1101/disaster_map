@@ -40,22 +40,6 @@ class MarkSerializer(serializers.GeoFeatureModelSerializer):
                                         disaster_tag_id=1)
             return TweetSerializer(instance=tweet, context=self.context).data
 
-    #
-    # def get_time(self, obj):
-    #     if obj.tweet_set.filter(location=obj) is not None:
-    #         return obj.tweet_set.filter(location=obj)[0].time
-    #     return None
-    #
-    # def get_user(self, obj):
-    #     if obj.tweet_set.filter(location=obj) is not None:
-    #         return obj.tweet_set.filter(location=obj)[0].user
-    #     return None
-    #
-    # def get_tweet(self, obj):
-    #     if obj.tweet_set.filter(location=obj) is not None:
-    #         return obj.tweet_set.filter(location=obj)[0].tweet
-    #     return None
-
     class Meta:
         fields = ("id", "region_name", "tweet")
         geo_field = "location"
